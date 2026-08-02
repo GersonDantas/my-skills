@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grill Me"
+  short_description: "Stress-test rigoroso de planos e designs"
+  default_prompt: "Use $grill-me para me entrevistar rigorosamente sobre este plano até resolvermos as decisões principais."
