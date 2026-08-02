@@ -1,0 +1,4 @@
+interface:
+  display_name: "Laudite PR Review Proof Inline"
+  short_description: "Review de PR Laudite com provas inline"
+  default_prompt: "Use $mr-review-proof-inline para revisar esta PR da Laudite, validar os critérios e o Figma quando aplicável, provar inconsistências aprovadas e publicar comentários inline."
