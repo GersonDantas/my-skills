@@ -1,0 +1,44 @@
+{
+  "name": "gerson-my-skills",
+  "interface": {
+    "displayName": "Gerson's My Skills"
+  },
+  "plugins": [
+    {
+      "name": "explain-in-steps",
+      "source": {
+        "source": "local",
+        "path": "./plugins/explain-in-steps"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "review-proof-inline",
+      "source": {
+        "source": "local",
+        "path": "./plugins/review-proof-inline"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "review-go-proof-inline",
+      "source": {
+        "source": "local",
+        "path": "./plugins/review-go-proof-inline"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

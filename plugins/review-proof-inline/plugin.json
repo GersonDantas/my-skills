@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "review-proof-inline",
+  "version": "0.1.0",
+  "description": "Review pull requests and merge requests with verified findings and optional proof tests.",
+  "author": {
+    "name": "Gerson Dantas",
+    "url": "https://github.com/GersonDantas"
+  },
+  "homepage": "https://github.com/GersonDantas/my-skills/tree/main/plugins/review-proof-inline",
+  "repository": "https://github.com/GersonDantas/my-skills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Review Proof Inline",
+        "shortDescription": "Evidence-backed PR reviews",
+        "longDescription": "Review code changes, verify findings, and use the bundled Test Proof skill for approved failing proofs before publishing inline feedback.",
+        "developerName": "Gerson Dantas",
+        "category": "Productivity",
+        "capabilities": [
+          "Review pull requests",
+          "Prove review findings"
+        ]
+      }
+    }
+  }
+}

@@ -53,6 +53,26 @@ Install each required companion skill alongside the skill you want to use. A ref
 
 For example, installing `review-go-proof-inline/` alone does **not** provide its base review workflow. Install all three folders listed in its row. Other skills in the catalog have no references to another personal skill in this repository.
 
+## Install a bundled plugin
+
+The three plugins package each main skill with the other skills it needs. Choose one package for the workflow you want:
+
+| Plugin | Included skills | Best for |
+| --- | --- | --- |
+| [`explain-in-steps`](./plugins/explain-in-steps/) | `explain-in-steps`, `show-me` | Guided explanations with optional visuals. |
+| [`review-proof-inline`](./plugins/review-proof-inline/) | `review-proof-inline`, `test-proof` | General PR and MR reviews. |
+| [`review-go-proof-inline`](./plugins/review-go-proof-inline/) | `review-go-proof-inline`, `review-proof-inline`, `test-proof` | Go reviews; the general review workflow is already included. |
+
+In Codex CLI, add this repository as a plugin marketplace:
+
+```text
+codex plugin marketplace add GersonDantas/my-skills
+```
+
+Then open the Plugins Directory in the ChatGPT desktop app, select **Gerson's My Skills**, and install the plugin you want. Adding the marketplace makes the packages available; it does not install them. The Go plugin already includes the general review and proof skills, so you do not need to install the general review plugin alongside it. Installing both review plugins would provide duplicate copies of those shared skills.
+
+These packages are distributed through this GitHub repository's marketplace. They have not been submitted to the public OpenAI Plugins Directory. The top-level skill folders remain the source copies; when a source skill changes, the copies in every affected plugin need to be updated together.
+
 ## Usage
 
 Open the folder of the skill you want and read its `SKILL.md`. To use it in Codex, install or share the complete skill folder, including `references/`, `assets/`, `scripts/`, and `agents/` when present. Some skills require particular tools or explicit approval for certain actions; their files describe those requirements.

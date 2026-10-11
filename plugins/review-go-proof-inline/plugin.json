@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "review-go-proof-inline",
+  "version": "0.1.0",
+  "description": "Review Go changes with verified findings, official Go criteria, and optional proof tests.",
+  "author": {
+    "name": "Gerson Dantas",
+    "url": "https://github.com/GersonDantas"
+  },
+  "homepage": "https://github.com/GersonDantas/my-skills/tree/main/plugins/review-go-proof-inline",
+  "repository": "https://github.com/GersonDantas/my-skills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Review Go Proof Inline",
+        "shortDescription": "Evidence-backed Go reviews",
+        "longDescription": "Review Go pull requests and merge requests with the bundled general review and Test Proof workflows, plus Go-specific criteria.",
+        "developerName": "Gerson Dantas",
+        "category": "Productivity",
+        "capabilities": [
+          "Review Go pull requests",
+          "Prove review findings"
+        ]
+      }
+    }
+  }
+}

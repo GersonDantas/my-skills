@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "explain-in-steps",
+  "version": "0.1.0",
+  "description": "Explain a topic one step at a time, with visual explanations when useful.",
+  "author": {
+    "name": "Gerson Dantas",
+    "url": "https://github.com/GersonDantas"
+  },
+  "homepage": "https://github.com/GersonDantas/my-skills/tree/main/plugins/explain-in-steps",
+  "repository": "https://github.com/GersonDantas/my-skills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Explain in Steps",
+        "shortDescription": "Guided visual explanations",
+        "longDescription": "Guide learning one step at a time and use diagrams or focused visuals through the included Show Me skill.",
+        "developerName": "Gerson Dantas",
+        "category": "Productivity",
+        "capabilities": [
+          "Explain concepts in steps",
+          "Create visual explanations"
+        ]
+      }
+    }
+  }
+}

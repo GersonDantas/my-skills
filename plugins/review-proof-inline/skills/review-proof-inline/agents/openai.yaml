@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Proof Inline"
+  short_description: "Revisa PRs e MRs com provas e comentários inline"
+  default_prompt: "Use $review-proof-inline para revisar esta PR ou MR, validar achados comigo, provar os aprovados e preparar comentários inline."

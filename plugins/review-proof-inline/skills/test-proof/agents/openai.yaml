@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Proof"
+  short_description: "Focused failing test proof"
+  default_prompt: "Use $test-proof to turn this inconsistency into the smallest failing test, run the narrowest test command, and stop at the proof unless I ask for a fix."
