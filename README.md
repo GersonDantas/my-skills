@@ -1,50 +1,50 @@
 # My Skills
 
-Skills que uso para tornar conversas, estudos e trabalho de desenvolvimento mais claros e verificáveis. Cada pasta contém um `SKILL.md`; algumas também incluem referências, modelos ou scripts usados pela própria skill.
+Skills I use to make conversations, learning, and development work clearer and easier to verify. Each folder contains a `SKILL.md`; some also include references, templates, or scripts used by the skill.
 
 <p align="center">
   <a href="https://ko-fi.com/gerson_dantas" target="_blank" rel="noopener noreferrer">
-    <img src="https://github.com/GersonDantas/img/blob/b81c0ba4adb694a7a65a91f64f7a1670d4d5c101/qrcode.png" alt="Apoie meu trabalho com um café no Ko-fi" height="200">
+    <img src="https://github.com/GersonDantas/img/blob/b81c0ba4adb694a7a65a91f64f7a1670d4d5c101/qrcode.png" alt="Support my work with a coffee on Ko-fi" height="200">
   </a>
 </p>
 
-<p align="center">Se estas skills ajudam no seu trabalho, você pode <a href="https://ko-fi.com/gerson_dantas">me pagar um café ☕</a>.</p>
+<p align="center">If these skills help your work, you can <a href="https://ko-fi.com/gerson_dantas">buy me a coffee ☕</a>.</p>
 
-## Por que estas skills existem
+## Why these skills exist
 
-Uma skill registra um jeito de trabalhar que vale repetir. A intenção desta coleção é reduzir explicações recomeçadas, preservar decisões importantes e pedir evidências antes de concluir que um problema foi resolvido. Algumas skills ajudam a conversar e aprender; outras organizam revisão de código, provas de bugs e merges.
+A skill captures a way of working that is worth repeating. This collection aims to reduce repeated explanations, preserve important decisions, and require evidence before declaring a problem solved. Some skills support communication and learning; others organize code reviews, bug proofs, and merges.
 
-Elas não substituem as regras do projeto nem as decisões de quem está trabalhando nele. Antes de usar uma skill em um repositório, confira suas instruções, dependências e limites de autorização.
+They do not replace project rules or the decisions of the people working on a project. Before using a skill in a repository, read its instructions, dependencies, and approval requirements.
 
-## Escolha pelo momento do trabalho
+## Choose a skill for the task
 
-| Situação | Skill | O que faz | Como ajuda |
+| Situation | Skill | What it does | How it helps |
 | --- | --- | --- | --- |
-| Preciso de uma resposta curta | [`caveman`](./caveman/SKILL.md) | Reduz texto supérfluo em níveis de concisão, preservando precisão técnica. | Facilita ler atualizações e decisões sem perder fatos, riscos ou comandos. |
-| Quero entender um assunto aos poucos | [`explain-in-steps`](./explain-in-steps/SKILL.md) | Apresenta uma ideia por vez e avança quando eu pedir. | Evita uma explicação longa antes de eu compreender a base. |
-| Preciso enxergar um fluxo ou conceito | [`show-me`](./show-me/SKILL.md) | Usa diagramas, esboços de código e visuais no nível de detalhe escolhido. | Torna relações e alternativas mais fáceis de discutir. |
-| Quero testar uma ideia antes de construir | [`grill-me`](./grill-me/SKILL.md) | Entrevista sobre um plano, uma pergunta de cada vez, com resposta recomendada. | Expõe decisões pendentes e dependências cedo. |
-| Quero aprender um tema ao longo de sessões | [`teach`](./teach/SKILL.md) | Mantém missão, recursos, lições e registros de aprendizado em um espaço de estudo. | Dá continuidade ao aprendizado e cria material de consulta. |
-| Preciso escrever uma mensagem de commit | [`commit-message-copy`](./commit-message-copy/SKILL.md) | Produz uma mensagem curta, em estilo Git, a partir da mudança. | Poupa tempo e deixa o histórico mais legível. |
-| Encontrei um bug e quero prová-lo | [`test-proof`](./test-proof/SKILL.md) | Define o comportamento esperado e cria o menor teste que falha pelo motivo certo. | Separa evidência do defeito da correção de produção. |
-| Vou revisar um PR ou MR | [`review-proof-inline`](./review-proof-inline/SKILL.md) | Revisa comportamento e complexidade, verifica achados e controla separadamente prova e publicação de comentários. | Ajuda a evitar apontamentos sem evidência ou comentários publicados antes da triagem. |
-| O PR ou MR envolve Go | [`review-go-proof-inline`](./review-go-proof-inline/SKILL.md) | Acrescenta critérios específicos de Go ao fluxo da revisão geral. | Considera contratos, concorrência, erros e testes sem transformar preferências de estilo em bugs. |
-| Surgiram conflitos de merge | [`resolve-conflicts`](./resolve-conflicts/SKILL.md) | Planeja a resolução, combina mudanças compatíveis e valida o resultado. | Reduz a chance de descartar comportamento de um dos lados. |
-| Estou resolvendo conflitos de um MR em um worktree | [`resolve-mr-conflicts`](./resolve-mr-conflicts/SKILL.md) | Registra decisões, preserva o comportamento da branch de destino e executa verificações focadas. | Mantém a resolução auditável e evita misturar mudanças alheias. |
-| O merge é grande ou os dois lados mudaram o mesmo fluxo | [`merge-conductor`](./merge-conductor/SKILL.md) | Mapeia conflitos textuais e semânticos, conduz a resolução por etapas e compara o resultado com os dois lados originais. | Ajuda a detectar regressões mesmo quando o Git conclui o merge sem conflitos aparentes. |
+| I need a concise answer | [`caveman`](./caveman/SKILL.md) | Cuts unnecessary words at different levels of brevity while preserving technical accuracy. | Makes updates and decisions easier to read without losing facts, risks, or commands. |
+| I want to understand a topic gradually | [`explain-in-steps`](./explain-in-steps/SKILL.md) | Presents one idea at a time and continues when I ask. | Keeps the explanation manageable while I build the basics. |
+| I need to see a flow or concept | [`show-me`](./show-me/SKILL.md) | Uses diagrams, code sketches, and other visuals at the chosen depth. | Makes relationships and alternatives easier to discuss. |
+| I want to test an idea before building it | [`grill-me`](./grill-me/SKILL.md) | Interviews me about a plan, one question at a time, with a recommended answer. | Surfaces open decisions and dependencies early. |
+| I want to learn a topic across sessions | [`teach`](./teach/SKILL.md) | Maintains a learning mission, resources, lessons, and learning records in a workspace. | Preserves continuity and creates material I can revisit. |
+| I need a commit message | [`commit-message-copy`](./commit-message-copy/SKILL.md) | Writes a short Git-style message from the change. | Saves time and makes the history easier to scan. |
+| I found a bug and want to prove it | [`test-proof`](./test-proof/SKILL.md) | Defines the expected behavior and writes the smallest test that fails for the right reason. | Establishes evidence of the defect before changing production code. |
+| I am reviewing a PR or MR | [`review-proof-inline`](./review-proof-inline/SKILL.md) | Reviews behavior and complexity, verifies findings, and handles proofs and inline comments through separate approval steps. | Helps prevent unsupported findings or comments published before triage. |
+| The PR or MR changes Go code | [`review-go-proof-inline`](./review-go-proof-inline/SKILL.md) | Adds Go-specific criteria to the general review workflow. | Checks contracts, concurrency, errors, and tests without treating style preferences as bugs. |
+| A merge has conflicts | [`resolve-conflicts`](./resolve-conflicts/SKILL.md) | Plans the resolution, combines compatible changes, and validates the result. | Reduces the chance of discarding behavior from either branch. |
+| I am resolving MR conflicts in a worktree | [`resolve-mr-conflicts`](./resolve-mr-conflicts/SKILL.md) | Records decisions, preserves target-branch behavior, and runs focused checks. | Keeps the resolution auditable and separate from unrelated changes. |
+| A merge is large or both branches changed the same flow | [`merge-conductor`](./merge-conductor/SKILL.md) | Maps textual and semantic conflicts, guides resolution in stages, and compares the result with both original branches. | Helps catch regressions even when Git reports no conflict. |
 
-## Como elas se encaixam no dia a dia
+## How they fit into everyday work
 
-**Antes de implementar:** `grill-me` ajuda a fechar decisões; `show-me` e `explain-in-steps` ajudam a compartilhar o entendimento. Quando o objetivo é aprender um assunto de forma contínua, `teach` mantém o contexto entre sessões.
+**Before implementation:** `grill-me` helps settle decisions; `show-me` and `explain-in-steps` help build shared understanding. For ongoing learning, `teach` keeps context across sessions.
 
-**Durante o desenvolvimento:** `test-proof` transforma uma suspeita de bug em um teste observável. `commit-message-copy` ajuda a registrar mudanças de forma breve. `caveman` mantém a comunicação enxuta quando esse estilo é útil.
+**During development:** `test-proof` turns a suspected bug into an observable failing test. `commit-message-copy` helps document changes briefly. `caveman` keeps communication concise when that style is useful.
 
-**Na revisão e integração:** `review-proof-inline` organiza evidência e triagem; `review-go-proof-inline` acrescenta critérios de Go. `resolve-conflicts` atende conflitos comuns, `resolve-mr-conflicts` cuida do fluxo de um MR, e `merge-conductor` entra quando a divergência exige análise mais profunda.
+**During review and integration:** `review-proof-inline` organizes evidence and triage; `review-go-proof-inline` adds Go criteria. `resolve-conflicts` handles common conflicts, `resolve-mr-conflicts` supports an MR workflow, and `merge-conductor` helps when divergent changes need deeper analysis.
 
-## Uso
+## Usage
 
-Abra a pasta da skill desejada e leia o `SKILL.md`. Para usar no Codex, instale ou compartilhe a pasta completa da skill, inclusive `references/`, `assets/`, `scripts/` e `agents/` quando existirem. Algumas skills dependem de ferramentas ou de aprovação explícita para certas ações; esses requisitos estão descritos no respectivo arquivo.
+Open the folder of the skill you want and read its `SKILL.md`. To use it in Codex, install or share the complete skill folder, including `references/`, `assets/`, `scripts/`, and `agents/` when present. Some skills require particular tools or explicit approval for certain actions; their files describe those requirements.
 
-A skill `resolve-conflicts` declara como fonte o [projeto Forge](https://github.com/antinomyhq/forge/tree/main/.forge/skills/resolve-conflicts). Consulte o arquivo antes de reutilizá-la ou adaptá-la.
+The `resolve-conflicts` skill names the [Forge project](https://github.com/antinomyhq/forge/tree/main/.forge/skills/resolve-conflicts) as its source. Read its file before reusing or adapting it.
 
-> Este catálogo descreve as skills pessoais sem vínculo com a Laudite. A pasta `mr-review-proof-inline`, já existente neste repositório, é específica da Laudite e não faz parte da lista acima.
+> This catalog covers personal skills unrelated to Laudite. The `mr-review-proof-inline` folder already in this repository is specific to Laudite and is not included in the list above.
