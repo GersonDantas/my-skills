@@ -41,6 +41,18 @@ They do not replace project rules or the decisions of the people working on a pr
 
 **During review and integration:** `review-proof-inline` organizes evidence and triage; `review-go-proof-inline` adds Go criteria. `resolve-conflicts` handles common conflicts, `resolve-mr-conflicts` supports an MR workflow, and `merge-conductor` helps when divergent changes need deeper analysis.
 
+## Skill dependencies
+
+Install each required companion skill alongside the skill you want to use. A reference in `SKILL.md` tells the model what to read when the workflow runs; it does not install that skill for you. Keep the complete folders as siblings in the same skills directory.
+
+| Skill you want to use | Install these folders | When the companion is used |
+| --- | --- | --- |
+| [`explain-in-steps`](./explain-in-steps/SKILL.md) | [`explain-in-steps/`](./explain-in-steps/) and [`show-me/`](./show-me/) | `show-me` is read when the explanation uses visuals. The skill points to `../show-me/SKILL.md`. |
+| [`review-proof-inline`](./review-proof-inline/SKILL.md) | [`review-proof-inline/`](./review-proof-inline/) and [`test-proof/`](./test-proof/) | `test-proof` is used when an approved finding needs a failing proof test. The review itself can run without that step. |
+| [`review-go-proof-inline`](./review-go-proof-inline/SKILL.md) | [`review-go-proof-inline/`](./review-go-proof-inline/), [`review-proof-inline/`](./review-proof-inline/), and [`test-proof/`](./test-proof/) | The general review skill is required from the start; `test-proof` supports approved proof tests. |
+
+For example, installing `review-go-proof-inline/` alone does **not** provide its base review workflow. Install all three folders listed in its row. Other skills in the catalog have no references to another personal skill in this repository.
+
 ## Usage
 
 Open the folder of the skill you want and read its `SKILL.md`. To use it in Codex, install or share the complete skill folder, including `references/`, `assets/`, `scripts/`, and `agents/` when present. Some skills require particular tools or explicit approval for certain actions; their files describe those requirements.
