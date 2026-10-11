@@ -63,13 +63,23 @@ The three plugins package each main skill with the other skills it needs. Choose
 | [`review-proof-inline`](./plugins/review-proof-inline/) | `review-proof-inline`, `test-proof` | General PR and MR reviews. |
 | [`review-go-proof-inline`](./plugins/review-go-proof-inline/) | `review-go-proof-inline`, `review-proof-inline`, `test-proof` | Go reviews; the general review workflow is already included. |
 
-In Codex CLI, add this repository as a plugin marketplace:
+In Codex CLI, register the repository's plugin catalog once:
 
 ```text
-codex plugin marketplace add GersonDantas/my-skills
+codex plugin marketplace add GersonDantas/my-skills --sparse .agents/plugins
 ```
 
-Then open the Plugins Directory in the ChatGPT desktop app, select **Gerson's My Skills**, and install the plugin you want. Adding the marketplace makes the packages available; it does not install them. The Go plugin already includes the general review and proof skills, so you do not need to install the general review plugin alongside it. Installing both review plugins would provide duplicate copies of those shared skills.
+This makes the three plugins available. It does **not** install all of them. The sparse checkout limits the files checked out for the catalog; Git may still transfer additional repository data.
+
+Then install **only the plugin you want**:
+
+| Choice | Command |
+| --- | --- |
+| Guided explanations | `codex plugin add explain-in-steps@gerson-my-skills` |
+| General PR/MR review | `codex plugin add review-proof-inline@gerson-my-skills` |
+| Go PR/MR review | `codex plugin add review-go-proof-inline@gerson-my-skills` |
+
+You can also select **Gerson's My Skills** in the ChatGPT desktop app's Plugins Directory and install one plugin there. The Go plugin already includes the general review and proof skills, so you do not need the general review plugin alongside it. Installing both review plugins would provide duplicate copies of those shared skills.
 
 These packages are distributed through this GitHub repository's marketplace. They have not been submitted to the public OpenAI Plugins Directory. The top-level skill folders remain the source copies; when a source skill changes, the copies in every affected plugin need to be updated together.
 

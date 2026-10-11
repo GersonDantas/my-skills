@@ -7,8 +7,10 @@
     {
       "name": "explain-in-steps",
       "source": {
-        "source": "local",
-        "path": "./plugins/explain-in-steps"
+        "source": "git-subdir",
+        "url": "https://github.com/GersonDantas/my-skills.git",
+        "path": "./plugins/explain-in-steps",
+        "ref": "main"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -19,8 +21,10 @@
     {
       "name": "review-proof-inline",
       "source": {
-        "source": "local",
-        "path": "./plugins/review-proof-inline"
+        "source": "git-subdir",
+        "url": "https://github.com/GersonDantas/my-skills.git",
+        "path": "./plugins/review-proof-inline",
+        "ref": "main"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -31,8 +35,10 @@
     {
       "name": "review-go-proof-inline",
       "source": {
-        "source": "local",
-        "path": "./plugins/review-go-proof-inline"
+        "source": "git-subdir",
+        "url": "https://github.com/GersonDantas/my-skills.git",
+        "path": "./plugins/review-go-proof-inline",
+        "ref": "main"
       },
       "policy": {
         "installation": "AVAILABLE",
