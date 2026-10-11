@@ -1,0 +1,4 @@
+interface:
+  display_name: "Merge Conductor"
+  short_description: "Conduz merges complexos com paridade validada"
+  default_prompt: "Use $merge-conductor para conduzir este merge complexo passo a passo com checkpoints e validação de paridade."

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Resolve MR Conflicts"
+  short_description: "Resolve MR merge conflicts safely."
+  default_prompt: "Use $resolve-mr-conflicts to resolve the current MR merge conflicts, keep a log, add focused tests when practical, and verify without committing or pushing."
+
+policy:
+  allow_implicit_invocation: true

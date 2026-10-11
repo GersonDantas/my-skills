@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Review Proof Inline"
+  short_description: "Revisão Go com provas e gates explícitos"
+  default_prompt: "Use $review-go-proof-inline para revisar este PR Go com provas e comentários inline."

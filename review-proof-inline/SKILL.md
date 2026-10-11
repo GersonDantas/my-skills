@@ -1,259 +1,60 @@
 ---
 name: review-proof-inline
-description: Review GitHub pull requests or GitLab merge requests through a gated workflow that resolves the review target, inspects the diff and repository context, validates candidate findings with the user, creates minimal failing proof tests for approved behavioral issues, obtains approval before every write operation, and publishes or edits inline review comments with stable proof links. Use when the user asks for a PR or MR code review with evidence, proof tests, inline comments, comment editing, or a review flow that must not publish unapproved findings.
+description: Review GitHub pull requests or GitLab merge requests with two-pass analysis, independent candidate verification when available, human triage, optional failing proofs, and separately approved inline publication. Use for evidence-based PR/MR review or for proving, editing, or publishing review findings.
 ---
 
 # Review Proof Inline
 
-## Objective
+Review the remote PR or MR as the source of truth. Support any organization and repository. Detect provider, host, language, criteria, test and commit conventions from the request and repository; never import another organization's rules, tools, language, tracker, or design system as defaults.
 
-Review a GitHub PR or GitLab MR from source context through a published inline comment while preserving repository state and requiring explicit approval at each irreversible or externally visible step.
+Write user-facing updates, findings, reports, and comments in the user's language. Preserve identifiers, paths, commands, and repository-mandated test titles.
 
-Support any organization and repository. Detect provider, host, repository, language, test conventions, commit rules, and review guidance from the request and local checkout instead of assuming defaults.
+## Authorization boundaries
 
-## Language
+“Review” authorizes read-only work. A classification or approval at one gate never authorizes another operation. Obtain separate, explicit authorization for:
 
-Write user-facing status, findings, proof reports, and review comments in the user's language unless the user requests another language. Preserve code identifiers, paths, API fields, commands, and repository-mandated test-title conventions.
+1. Resolving an existing remote review thread.
+2. Creating or changing local proof files.
+3. Staging approved files, committing, and pushing, each as its own action.
+4. Creating, editing, or deleting each set of remote inline comments after a current-head preview.
+5. Creating or updating tracker items, if the user separately requests that integration.
 
-## Non-Negotiable Gates
+Never infer authorization from silence, a prior “approve all,” a triage label, or an earlier preview. If the user performs staging, commit, and push manually, accept their explicit report as a report of completed actions, not permission for agent writes; verify the remote commit and proof link before citing it. A production fix is a separate implementation request.
 
-Never collapse these gates. Approval for one gate does not imply approval for a later gate.
+## 1. Resolve context and earlier discussions
 
-1. Candidate gate: present every validated finding and draft inline comment; wait for explicit approval before changing files or publishing.
-2. Proof gate: create and run only approved proof tests; show the failing result; wait for explicit approval before staging, committing, or pushing.
-3. Versioning gate: show the exact proof files, destination ref, CI consequence, and proposed commit message; wait for explicit approval before commit and push.
-4. Publication gate: rebase the comment on current remote context, show the final body and anchor; wait for explicit approval before creating, editing, or deleting a remote comment.
+Resolve provider and host, repository, PR number or MR IID, canonical URL, source and target branches, current remote head, base or diff refs, changed files, and complete patch. Accept a URL, a number with repository context, or the current branch only when it identifies exactly one open review. Ask for a URL if ambiguous; never guess from an unrelated checkout. Record fetch time and a compact context ledger. Retrieve truncated or paginated material before claiming complete coverage.
 
-Treat instructions such as "review this" as read-only authorization. Require explicit verbs such as "prove", "commit", "push", "publish", "edit", or "delete" for the corresponding operations.
+Read [provider-operations.md](references/provider-operations.md) for the detected provider before its CLI/API calls. Confirm that the CLI exists and is authenticated. Do not install software, log in interactively, or change credentials without authorization. For unsupported providers, review a locally available diff read-only and explain why remote publication is unavailable.
 
-## Required Context
+Read [previous-threads.md](references/previous-threads.md) before diff analysis when the provider supports resolvable review threads. Inventory prior inline discussions, assess unresolved items against the current head, and seek independent approval only for exact threads ready to resolve. Continue the review if the user declines. Do not infer a fix from a reply or an outdated marker.
 
-Resolve all of the following before reviewing:
+Before analysis, read applicable `AGENTS.md`, `CONTRIBUTING.md`, review and test guides, and commit conventions. Inspect branch, remotes, working tree, and staging area. Preserve unrelated changes. Do not switch branches, reset, stash, clean, or overwrite files without authorization. Prefer remote read APIs when the checkout differs from the reviewed head. A generated review plan is usable only when provider, repository, review number, and head match.
 
-- provider and host
-- repository or project identifier
-- PR number or MR IID
-- canonical URL
-- source and target branches
-- current remote head SHA
-- merge base or provider diff refs when required
-- changed files and complete patch
+## 2. Review and verify
 
-Accept a PR/MR URL, a number plus repository context, or the current branch when the provider CLI can resolve exactly one open review. If resolution is ambiguous, stop and ask for the PR/MR URL. Never guess a repository from an unrelated checkout.
+Read [review-method.md](references/review-method.md). Apply repository rules and the baseline criteria there. Before diff analysis, ask once whether the user has supplemental criteria for this run. Apply only exact criteria the user supplies or identifies and explicitly approves; otherwise proceed. Read each approved source completely, record its source and snapshot date when it may drift, and state that date in the first review update. Do not silently persist supplemental criteria into this skill.
 
-Treat the remote PR/MR as the source of truth. A supplied branch, local review report, or cached diff is supplemental context and must match the remote target and current head.
+Complete behavior and compliance passes. Include a deletion-first complexity check. For a small change, use one cohesive pass. For a broad change, map dependencies, inspect slices by behavior, collect all results, then deduplicate. Delegate slices only when applicable agent instructions permit delegation; keep each slice's context bounded. Finish all slices before human triage. Do not stop at an internal progress report or ask the user to continue.
 
-## Provider Selection
+Validate candidate findings against callers, guards, requirements, and a precise changed diff line. Before presenting candidates, use a fresh independent verifier when permitted and available; follow the blind projection and fallback in [review-method.md](references/review-method.md). Verification is read-only and does not replace human triage. Reject unsupported, duplicate, pre-existing, or purely aesthetic concerns. Report verification limitations honestly.
 
-Detect GitHub or GitLab from the review URL first, then from the authenticated repository remote. Read [references/provider-operations.md](references/provider-operations.md) completely after selecting the provider and before calling its CLI or API.
+When changed UI behavior or styling makes design conformity applicable, use the exact design target and the relevant design skill or tool. Ask for a missing source or target. Do not inspect broad frames or variants without approval. If exact design evidence is inaccessible, obtain approval before using a fallback and record its limits. Otherwise record design as `N/A` with reason.
 
-For unsupported providers, perform a read-only review only when the diff is locally available. Do not improvise remote comment writes; explain the missing provider operation and request a supported API path or manual publication.
+## 3. Human triage
 
-Verify the selected CLI exists and is authenticated before provider API calls. Do not install software, start an interactive login, or alter credential configuration without user authorization.
+Present the complete consolidated candidate list with stable handles `[1..N]`. For each, show severity; file, changed line and side; observation; concrete risk; contract or criterion; draft inline comment; proof plan or why none helps; brief possible solution; and checks performed. For complexity, add `delete`, `stdlib`, `native`, `yagni`, or `shrink`, a concrete replacement, and estimated net lines removable. Offer solution detail if useful.
 
-## Repository Instructions And Workspace Safety
+Accept prose, partial selection, and batches such as “rework 1,3 / debt 2 / discard 4.” These labels classify findings only: `rework` means the user wants correction considered before merge, `debt` means valid but non-blocking, and `discard` removes the candidate. They do not submit a blocking review, create a card, change code, or publish a comment. If no finding survives, report coverage limits and stop without inventing comments. State whether any local file or remote comment changed.
 
-Before analysis:
+For selected findings, ask which behavioral items to prove. A user may approve a finding but decline proof. Maintainability findings do not require a failing test. After triage, follow [proof-and-publication.md](references/proof-and-publication.md) for proof, Git, current-head previews, publication, edits, and closure.
 
-1. Locate applicable `AGENTS.md`, `CONTRIBUTING.md`, review guides, test guides, and commit conventions.
-2. Inspect the working tree, current branch, remotes, and staged files.
-3. Preserve unrelated user changes. Do not switch branches, reset, stash, clean, or overwrite files without explicit approval.
-4. Prefer provider APIs for read-only context when the local checkout does not match the review head.
-5. Use a separate worktree or another isolated checkout for proof work when changing the current checkout would disturb user changes. Obtain approval before creating it if local policy requires approval.
+## Invariants
 
-Use a compatible generated review plan when one exists. Verify that its provider, repository, review number, and head SHA match. Otherwise build context from remote metadata, changed-file responses, the patch, and relevant surrounding code.
-
-## Review Criteria
-
-Apply repository-specific standards first, then these baseline criteria.
-
-### Complexity
-
-After behavioral review, run a deletion-first complexity pass. Look for dead code, unused dependencies, hand-rolled standard-library or native-platform behavior, speculative abstractions, single-implementation interfaces, configuration nobody changes, layers with one caller, and logic that has a materially shorter equivalent.
-
-Classify each surviving complexity finding as `delete`, `stdlib`, `native`, `yagni`, or `shrink`. Record the exact location, what can be removed, its concrete replacement, and the estimated net line reduction. Reject aesthetic preferences and reductions that weaken correctness, security, accessibility, validation, error handling, or the smallest useful test.
-
-### Production Code
-
-- prioritize behavioral regressions, incorrect contracts, data loss, security flaws, concurrency errors, state leaks, and material performance risks
-- trace inputs, state transitions, side effects, error paths, and downstream consumers across changed and unchanged code
-- distinguish a root cause from a symptom or workaround
-- reuse established helpers, services, abstractions, constants, and design-system primitives when their contract fits
-- respect existing module boundaries and ownership
-- reject dead state, unused effects, ignored results, unstable identity, and persistence that is only partially implemented
-- verify authorization, validation, transaction, retry, and cleanup behavior at trust or failure boundaries
-- avoid commenting on style unless it creates a concrete maintenance or correctness risk under repository rules
-
-### Tests
-
-- ask what real defect each new or changed test would detect
-- establish expected behavior from requirements, contracts, docs, production usage, or explicit review context
-- prefer exact outputs, invariants, error contracts, and mutation-sensitive assertions
-- reject truthiness, existence-only assertions, broad snapshots, and `not.toThrow` as primary behavioral proof
-- mock external boundaries, not the unit's own decisions
-- control clocks and randomness; avoid arbitrary sleeps, shared mutable state, and order dependence
-- do not mistake a test that reproduces current behavior for evidence that the behavior is correct
-
-## Workflow
-
-### 1. Resolve Remote Context
-
-Fetch metadata, changed files, patch, and current head. Record a compact context ledger containing provider, repository, review number, URL, source, target, head SHA, base/diff refs, and fetch time.
-
-If pagination, truncation, binary files, generated files, submodules, or large-file pointers make the diff incomplete, say so and retrieve the missing material before claiming complete coverage.
-
-### 2. Build The Review Map
-
-Summarize scope, touched domains, high-risk boundaries, generated or vendored files, and files that must be read together. Read relevant callers, consumers, schemas, types, tests, configuration, and migrations outside the patch when needed to validate behavior.
-
-Use one cohesive pass for a small change. For a large or cross-cutting review, use staged passes:
-
-1. context and dependency map
-2. specialized passes by behavior or subsystem
-3. validation and duplicate removal
-4. consolidated findings
-
-Include the complexity pass in either mode. Correctness findings take priority, but validated complexity findings belong in the same consolidated candidate list.
-
-Do not expose speculative intermediate findings as final results.
-
-### 3. Validate Findings
-
-For every candidate:
-
-1. Identify the exact changed diff line suitable for an inline anchor.
-2. State the objective observation without guessing intent.
-3. Trace the concrete failure scenario and affected caller or user.
-4. Check surrounding and historical code for a contract that disproves the concern.
-5. Determine whether a minimal automated proof is practical.
-6. Reject duplicates, pure preferences, unsupported possibilities, and issues outside the changed behavior unless the change activates them.
-
-Assign severity only from impact and likelihood. Do not inflate severity to make a finding persuasive.
-
-### 4. Candidate Gate
-
-Present the complete consolidated list. For each finding include:
-
-- severity and concise title
-- target file, changed line, and diff side
-- objective observation
-- concrete risk or regression path
-- violated contract or criterion
-- draft inline comment
-- proof plan, or why an automated proof is not useful
-
-For a complexity finding, also include its classification, proposed replacement, and estimated net line reduction. Do not require a failing proof test when the issue is maintainability rather than behavior.
-
-If no finding survives validation, report that result with the coverage limits. Do not invent a comment to justify the review.
-
-State that no file was changed and no remote comment was published. Wait for the user to approve all, approve selected items, request revisions, or reject them.
-
-### 5. Create Minimal Proofs
-
-For each approved behavioral finding, use an installed proof-test skill when available and applicable. Otherwise apply this embedded protocol:
-
-1. Translate the finding into one observable expected behavior.
-2. Choose the lowest useful level: unit, integration, then end-to-end.
-3. Write the smallest test that fails for the claimed reason on the reviewed head.
-4. Avoid production-code changes.
-5. Run the narrowest command that executes the proof.
-6. Confirm that the failure message and actual value demonstrate the approved finding rather than setup, environment, or unrelated failures.
-
-Do not create a proof when the risk is configuration-only, security-sensitive to reproduce, destructive, flaky, prohibitively expensive, or already demonstrated by a stronger existing test. Explain the alternative evidence.
-
-If the user approves a finding but declines proof work, or no useful proof is practical, skip the proof and versioning steps. Preserve the evidence limitation in the final draft and proceed to comment preparation only when publication was requested.
-
-### 6. Proof Gate
-
-Show:
-
-- proof file and relevant line
-- exact command run
-- observed failing assertion or error
-- why that failure proves the approved finding
-- files changed by the proof
-- any environment limitation
-
-State that nothing was staged, committed, pushed, fixed, or published. Wait for explicit approval. If rejected, revise or remove only rejected proof work, rerun the narrow command, and return to this gate.
-
-Treat a production fix as a separate implementation request. Never mix proof and fix changes without explicit authorization and separate scope.
-
-### 7. Choose Proof Publication Strategy
-
-A deliberately failing test can break the review branch CI. Before versioning each proof, ask the user to approve one strategy:
-
-1. Separate proof branch or ref, preferred when remote policy permits it. Keep the reviewed source branch unchanged.
-2. Review source branch, only when the user explicitly accepts the CI impact and has authority to update it.
-3. Local-only proof. Do not claim a navigable remote proof link in the final comment.
-
-Let the choice differ between proofs when their CI or branch impact differs. Never infer it from an earlier approval.
-
-For a separate proof ref, derive it from the reviewed head so the failure remains attributable to the exact code reviewed. Avoid rewriting or force-pushing existing refs.
-
-### 8. Versioning Gate
-
-Read repository commit instructions. Use a specifically requested or repository-mandated commit-message skill when available; otherwise infer the style from repository guidance and recent history.
-
-Show:
-
-- exact files proposed for staging
-- unrelated staged or unstaged files that will be excluded
-- destination branch/ref and remote
-- expected CI consequence
-- proposed commit message
-
-Wait for explicit approval before staging, committing, or pushing. Commit only approved proof files. Never use force push. If commit or push fails, stop and do not publish the comment.
-
-After a successful push, resolve the immutable commit SHA and exact proof line. Build a provider-specific `blob/<commit>` link, never a local path or mutable branch link.
-
-### 9. Prepare Final Comment
-
-Re-fetch remote metadata, current head, diff refs, and changed files. Confirm that the approved inline anchor still exists in the current diff. Revalidate the finding if the reviewed code changed.
-
-Keep each comment concise and human:
-
-- objective observation
-- concrete impact
-- proof result
-- immutable proof URL and short proof commit, when remotely available
-
-If the proof changes the conclusion, severity, tone, or scope, return to the candidate gate. If only the immutable link was added, show the complete final comment at the publication gate.
-
-### 10. Publication Gate
-
-Show each final body with provider, repository, review number, file, line, diff side, current head SHA, and whether the operation is create or edit. For edits, require the provider comment identifier unless it is already present in the current run's ledger.
-
-Wait for explicit approval. Then publish exactly the approved operations, one inline thread per finding. Never replace an inline comment with a general review note merely because the API anchor failed.
-
-After each operation, verify the returned identifier, URL, body, path, line, side or position, and current association. Record these in the comment ledger to prevent duplicates.
-
-If the provider rejects a stale position, re-fetch context and return to this gate whenever the anchor or body changes.
-
-### 11. Edit Or Delete Existing Comments
-
-Require explicit approval and exact remote identifiers. Fetch the existing comment first and show the before/after body for edits. Show the exact target and recovery implications for deletion. Never create a duplicate when the instruction is to edit.
-
-### 12. Close
-
-Report concisely:
-
-- review target and head reviewed
-- context source and coverage limits
-- approved and rejected findings
-- proof files, commands, and observed results
-- proof ref, commit, and push status
-- created, edited, or deleted comment links
-- any uncommitted proof files or intentionally failing state left locally
-- estimated net lines removable from approved complexity findings
-
-Do not say the workflow is complete if a required approval, push, verification, or publication failed.
-
-## Operational Invariants
-
-- Never publish before candidate approval.
-- Never version proof work before proof approval.
-- Never push a failing proof to the source branch without explicit CI-impact approval.
-- Never publish a proof URL until the exact file exists at the cited immutable remote commit.
-- Never anchor against cached line numbers after the head changes.
-- Never include production fixes or unrelated changes in a proof commit.
-- Never treat silence or approval of an earlier gate as approval of a later write.
+- Never create a proof before approval of its exact finding and proof work.
+- Never stage before proof review and staging approval; never infer commit or push approval from staging approval.
+- Never push a deliberately failing proof to the review source branch without explicit acceptance of its CI impact.
+- Never cite a mutable branch or a proof file absent from the exact remote commit.
+- Never publish before a new approval of the final body, anchor, operation, and current head.
+- Never replace a failed inline anchor with a general comment or duplicate an intended edit.
+- Never mix production fixes, unrelated changes, or generated artifacts into a proof commit.

@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "merge-conductor/state.schema.json",
+  "title": "merge-conductor run state",
+  "description": "Verifiable state for --resume, audit, and handoff. Written by checkpoint.sh after each resolved point and by phase scripts as they complete. Lives at <studyDir>/.merge-conductor-state.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "sides", "worktree", "studyDir", "phasesDone", "remainingConflicts", "checkpointed"],
+  "properties": {
+    "version": { "const": 1 },
+    "sides": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ours", "theirs", "mergeBase"],
+      "properties": {
+        "ours": { "type": "string", "description": "SHA of the base side (--into)" },
+        "theirs": { "type": "string", "description": "SHA of the incoming target branch" },
+        "mergeBase": { "type": "string", "description": "chosen merge-base SHA" },
+        "mergeBasesAll": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "all merge-bases (criss-cross detection); length > 1 means ambiguous base"
+        }
+      }
+    },
+    "worktree": { "type": "string", "description": "absolute path of the dedicated merge worktree" },
+    "studyDir": { "type": "string", "description": "study directory (default merge-study/)" },
+    "mode": {
+      "type": "string",
+      "enum": ["full", "dry-run", "resume", "lite"],
+      "description": "active run mode"
+    },
+    "phasesDone": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["0", "1", "2", "3", "4", "5", "6", "6.5", "7"] },
+      "description": "completed phases"
+    },
+    "remainingConflicts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "paths still unresolved (UU / modify-delete / add-add / rerere-replayed-pending-review)"
+    },
+    "checkpointed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "paths already git-added as resolved checkpoints"
+    },
+    "attackOrder": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "resolution order (junction before consumers) as synthesized in the README"
+    },
+    "altitude": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "enum": ["TRIVIAL", "STANDARD", "DEEP"] },
+      "description": "per-path study altitude"
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["question", "answer"],
+        "properties": {
+          "question": { "type": "string" },
+          "answer": { "type": "string" },
+          "mandatoryHuman": { "type": "boolean", "description": "true for contract/schema/migration/billing/auth/test-removal" }
+        }
+      },
+      "description": "human decisions accepted (re-hydrated on --resume)"
+    },
+    "rerere": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "globalEnabledBefore": { "type": "boolean", "description": "was rerere.enabled globally before this run" },
+        "cacheSnapshot": { "type": "string", "description": "path of the rr-cache snapshot taken before enabling" },
+        "isolated": { "type": "boolean", "description": "true if running with an isolated/clean rr-cache" },
+        "autoResolvedPendingReview": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "files rerere auto-resolved that MUST be re-verified (treated as conflicts)"
+        }
+      }
+    },
+    "parityBySha": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "passfail": { "type": "string", "enum": ["ok", "regression", "indeterminate", "pending"] },
+          "inventory": { "type": "string", "enum": ["ok", "missing-tests", "indeterminate", "pending"] },
+          "baselineSource": { "type": "string", "enum": ["local", "ci-api", "scoped"], "description": "where the parent baseline came from" },
+          "baselineConfidence": { "type": "string", "enum": ["high", "low"], "description": "low when the baseline env may differ (CI-API/non-hermetic)" }
+        }
+      },
+      "description": "parity result keyed by parent SHA (cached; parents are immutable)"
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "test": { "type": "string" },
+          "build": { "type": "string" },
+          "lint": { "type": "string" },
+          "pkgManager": { "type": "string" }
+        }
+      },
+      "description": "per-package toolchain map from discover-toolchain.sh"
+    },
+    "harmonization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "done": { "type": "boolean" },
+        "blockers": { "type": "array", "items": { "type": "string" }, "description": "functional/contractual incoherence pending human acceptance" },
+        "followUps": { "type": "array", "items": { "type": "string" }, "description": "non-blocking quality findings written to FOLLOW-UPS.md" }
+      }
+    },
+    "convergenceCoverage": {
+      "type": "string",
+      "enum": ["symbol-graph", "tree-sitter", "lexical", "dirstat-only"],
+      "description": "fidelity tier the convergence detector ran at (declared in the README; no silent caps)"
+    }
+  }
+}
