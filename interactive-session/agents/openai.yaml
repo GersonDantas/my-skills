@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interactive Session"
+  short_description: "Explore and refine decisions together"
+  default_prompt: "Use $interactive-session to work through this problem with me, one point at a time."

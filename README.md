@@ -22,6 +22,7 @@ They do not replace project rules or the decisions of the people working on a pr
 | --- | --- | --- | --- |
 | I need a concise answer | [`caveman`](./caveman/SKILL.md) | Cuts unnecessary words at different levels of brevity while preserving technical accuracy. | Makes updates and decisions easier to read without losing facts, risks, or commands. |
 | I want to understand a topic gradually | [`explain-in-steps`](./explain-in-steps/SKILL.md) | Presents one idea at a time and continues when I ask. | Keeps the explanation manageable while I build the basics. |
+| I want to investigate a problem together | [`interactive-session`](./interactive-session/SKILL.md) | Keeps the conversation to one point and 5–10 readable lines at a time, recording confirmed decisions as numbered definitions. Its default response language is Brazilian Portuguese unless requested otherwise. | Helps recover context, clarify expected behavior, and settle decisions before planning or implementation. |
 | I need to see a flow or concept | [`show-me`](./show-me/SKILL.md) | Uses diagrams, code sketches, and other visuals at the chosen depth. | Makes relationships and alternatives easier to discuss. |
 | I want to test an idea before building it | [`grill-me`](./grill-me/SKILL.md) | Interviews me about a plan, one question at a time, with a recommended answer. | Surfaces open decisions and dependencies early. |
 | I want to learn a topic across sessions | [`teach`](./teach/SKILL.md) | Maintains a learning mission, resources, lessons, and learning records in a workspace. | Preserves continuity and creates material I can revisit. |
@@ -35,7 +36,7 @@ They do not replace project rules or the decisions of the people working on a pr
 
 ## How they fit into everyday work
 
-**Before implementation:** `grill-me` helps settle decisions; `show-me` and `explain-in-steps` help build shared understanding. For ongoing learning, `teach` keeps context across sessions.
+**Before implementation:** `interactive-session` helps resume a problem and record decisions in conversation; `grill-me` helps settle decisions; `show-me` and `explain-in-steps` help build shared understanding. For ongoing learning, `teach` keeps context across sessions.
 
 **During development:** `test-proof` turns a suspected bug into an observable failing test. `commit-message-copy` helps document changes briefly. `caveman` keeps communication concise when that style is useful.
 
