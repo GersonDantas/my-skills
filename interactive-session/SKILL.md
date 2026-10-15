@@ -5,6 +5,8 @@ description: Explore a problem, recover context, or refine decisions through a c
 
 # Interactive Session
 
+Original author: [Sidnei Araújo Júnior](https://github.com/sidnei-junior). English translation: Gerson Dantas.
+
 Help the user investigate a problem or resume a discussion in small steps. Let them question or confirm each point before moving on.
 
 ## Communication

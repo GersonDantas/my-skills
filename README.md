@@ -34,6 +34,8 @@ They do not replace project rules or the decisions of the people working on a pr
 | I am resolving MR conflicts in a worktree | [`resolve-mr-conflicts`](./resolve-mr-conflicts/SKILL.md) | Records decisions, preserves target-branch behavior, and runs focused checks. | Keeps the resolution auditable and separate from unrelated changes. |
 | A merge is large or both branches changed the same flow | [`merge-conductor`](./merge-conductor/SKILL.md) | Maps textual and semantic conflicts, guides resolution in stages, and compares the result with both original branches. | Helps catch regressions even when Git reports no conflict. |
 
+The original `interactive-session` skill was written by [Sidnei Araújo Júnior](https://github.com/sidnei-junior). Gerson Dantas translated it into English.
+
 ## How they fit into everyday work
 
 **Before implementation:** `interactive-session` helps resume a problem and record decisions in conversation; `grill-me` helps settle decisions; `show-me` and `explain-in-steps` help build shared understanding. For ongoing learning, `teach` keeps context across sessions.
