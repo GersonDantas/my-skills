@@ -27,6 +27,7 @@ They do not replace project rules or the decisions of the people working on a pr
 | I want to test an idea before building it | [`grill-me`](./grill-me/SKILL.md) | Interviews me about a plan, one question at a time, with a recommended answer. | Surfaces open decisions and dependencies early. |
 | I want to learn a topic across sessions | [`teach`](./teach/SKILL.md) | Maintains a learning mission, resources, lessons, and learning records in a workspace. | Preserves continuity and creates material I can revisit. |
 | I need a commit message | [`commit-message-copy`](./commit-message-copy/SKILL.md) | Writes a short Git-style message from the change. | Saves time and makes the history easier to scan. |
+| I am building a project across several PRs | [`construir-projeto-em-prs`](./construir-projeto-em-prs/SKILL.md) | Splits work into verifiable increments, coordinates agents, and routes each PR through independent review and authorized integration. | Keeps delivery, evidence, dependencies, and approvals visible across the project. |
 | I found a bug and want to prove it | [`test-proof`](./test-proof/SKILL.md) | Defines the expected behavior and writes the smallest test that fails for the right reason. | Establishes evidence of the defect before changing production code. |
 | I am reviewing a PR or MR | [`review-proof-inline`](./review-proof-inline/SKILL.md) | Reviews behavior and complexity, verifies findings, and handles proofs and inline comments through separate approval steps. | Helps prevent unsupported findings or comments published before triage. |
 | The PR or MR changes Go code | [`review-go-proof-inline`](./review-go-proof-inline/SKILL.md) | Adds Go-specific criteria to the general review workflow. | Checks contracts, concurrency, errors, and tests without treating style preferences as bugs. |
@@ -40,7 +41,7 @@ The original `interactive-session` skill was written by [Sidnei Araújo Júnior]
 
 **Before implementation:** `interactive-session` helps resume a problem and record decisions in conversation; `grill-me` helps settle decisions; `show-me` and `explain-in-steps` help build shared understanding. For ongoing learning, `teach` keeps context across sessions.
 
-**During development:** `test-proof` turns a suspected bug into an observable failing test. `commit-message-copy` helps document changes briefly. `caveman` keeps communication concise when that style is useful.
+**During development:** `construir-projeto-em-prs` organizes larger work into reviewed PRs. `test-proof` turns a suspected bug into an observable failing test. `commit-message-copy` helps document changes briefly. `caveman` keeps communication concise when that style is useful.
 
 **During review and integration:** `review-proof-inline` organizes evidence and triage; `review-go-proof-inline` adds Go criteria. `resolve-conflicts` handles common conflicts, `resolve-mr-conflicts` supports an MR workflow, and `merge-conductor` helps when divergent changes need deeper analysis.
 
@@ -54,7 +55,7 @@ Install each required companion skill alongside the skill you want to use. A ref
 | [`review-proof-inline`](./review-proof-inline/SKILL.md) | [`review-proof-inline/`](./review-proof-inline/) and [`test-proof/`](./test-proof/) | `test-proof` is used when an approved finding needs a failing proof test. The review itself can run without that step. |
 | [`review-go-proof-inline`](./review-go-proof-inline/SKILL.md) | [`review-go-proof-inline/`](./review-go-proof-inline/), [`review-proof-inline/`](./review-proof-inline/), and [`test-proof/`](./test-proof/) | The general review skill is required from the start; `test-proof` supports approved proof tests. |
 
-For example, installing `review-go-proof-inline/` alone does **not** provide its base review workflow. Install all three folders listed in its row. Other skills in the catalog have no references to another personal skill in this repository.
+For example, installing `review-go-proof-inline/` alone does **not** provide its base review workflow. Install all three folders listed in its row. [`construir-projeto-em-prs`](./construir-projeto-em-prs/SKILL.md) can run on its own and uses `review-proof-inline` for remote review when that skill is installed. Install the review bundle above if you want that workflow; its proof step also uses `test-proof`. Other skills in the catalog have no references to another personal skill in this repository.
 
 ## Install a bundled plugin
 

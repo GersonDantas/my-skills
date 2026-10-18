@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build a Project Through PRs"
+  short_description: "Small deliveries with agents and independent review"
+  default_prompt: "Use $construir-projeto-em-prs to implement this project in small deliveries with agents, review, and authorized integration."
